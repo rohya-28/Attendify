@@ -19,3 +19,14 @@ declare interface InputFieldProps extends TextInputProps {
     className?: string;
   }
 
+  declare interface UserProfile {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    role: 'student' | 'admin';  // Or any other roles you might want to add
+    profilePic: string;  // URL to the profile picture
+    phoneNumber: string;
+  }
+  
+

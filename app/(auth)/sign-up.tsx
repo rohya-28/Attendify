@@ -7,16 +7,19 @@ import { useState } from "react"
 import { View, Text, Image } from "react-native"
 import { ScrollView } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
+import authService from "@/api/authService"
+import { UserProfile } from '@/types/type';
 
 
 
 const Sign_Up = () => {
   const [form, setForm] = useState({
-    Name:'',
+    firstName:'',
+    lastName:'',
     email:'',
     password:'',
+    profilePic:'',
     phoneNo:'',
-    role:'',
   });
 
   const [role, setRole] = useState<'student' | 'admin'>('student');
@@ -27,6 +30,16 @@ const Sign_Up = () => {
 
   const onSignUpPress = async () => {
    console.log({...form,role});
+
+   try {
+    const formData = { ...form, role };
+    const response = await authService.signUp(formData);
+    console.log('Sign Up Successful:', response);
+
+  } catch (error) {
+    console.error('Sign Up Failed:', error);
+    // Handle error
+  }
 
   }
 
@@ -48,8 +61,15 @@ const Sign_Up = () => {
                     label="Name"
             placeholder="Full Name"
             icon={icons.person}
-            value={form.Name}
-                    onChangeText={(value) => setForm({ ...form, Name: value })}
+            value={form.firstName}
+                    onChangeText={(value) => setForm({ ...form, firstName: value })}
+               />
+               <InputField
+                    label="Name"
+            placeholder="Full Name"
+            icon={icons.person}
+            value={form.lastName}
+                    onChangeText={(value) => setForm({ ...form, lastName: value })}
                />
                <InputField
                     label="Email"
@@ -57,6 +77,13 @@ const Sign_Up = () => {
             icon={icons.email}
             value={form.email}
                     onChangeText={(value) => setForm({ ...form, email: value })}
+               />
+               <InputField
+                    label="Name"
+            placeholder="Full Name"
+            icon={icons.person}
+            value={form.profilePic}
+                    onChangeText={(value) => setForm({ ...form, profilePic: value })}
                />
                 <InputField
                     label="Phone No"

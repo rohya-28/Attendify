@@ -1,3 +1,4 @@
+import authService from "@/api/authService";
 import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
@@ -14,9 +15,16 @@ const CollegeInfo = () => {
     longitude: '',
   });
 
-  const onSignUpPress = async () => {
-    console.log(form);
-    // Add your sign-up logic here
+  const onSubmitCollegeInfo = async () => {
+    console.log('Submitting College Info:', form);
+
+    try {
+      const response = await authService.submitCollegeInfo(form);
+      console.log('College Info Submitted Successfully:', response);
+
+    } catch (error) {
+      console.error('Failed to Submit College Info:', error);
+    }
   };
 
   return (
@@ -65,7 +73,7 @@ const CollegeInfo = () => {
                 keyboardType="numeric"
                 onChangeText={(value) => setForm({ ...form, longitude: value })}
               />
-              <CustomButton title="Sign Up" onPress={onSignUpPress} className="mt-4" />
+              <CustomButton title="Sign Up" onPress={onSubmitCollegeInfo} className="mt-4" />
             </View>
           </View>
         </View>

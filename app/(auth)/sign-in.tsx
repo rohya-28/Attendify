@@ -1,3 +1,4 @@
+import authService from "@/api/authService";
 import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
@@ -14,9 +15,20 @@ const Sign_In = () => {
   });
 
   const onSignInPress = async () => {
-    console.log(form);
-    // Add your sign-in logic here
+    console.log({ email: form.email, password: form.password });
+  
+    try {
+      const formData = { email: form.email, password: form.password };
+      const response = await authService.signIn(formData);
+      console.log('Sign In Successful:', response);
+  
+      // You can handle successful login here.
+    } catch (error) {
+      console.error('Sign In Failed:', error);
+      // Handle error
+    }
   };
+  
 
   return (
     <GestureHandlerRootView>
