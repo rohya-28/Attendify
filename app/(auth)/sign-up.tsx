@@ -18,14 +18,14 @@ const Sign_Up = () => {
     lastName:'',
     email:'',
     password:'',
-    profilePic:'',
+    profilePic:'', 
     phoneNo:'',
   });
 
   const [role, setRole] = useState<'student' | 'admin'>('student');
 
   const toggleRole = () => {
-    setRole(prevRole => (prevRole === 'student' ? 'admin' : 'student'));
+    setRole(prevRole => (prevRole === 'student' ? 'admin' : 'student'));   
   };
 
   const onSignUpPress = async () => {
@@ -59,14 +59,14 @@ const Sign_Up = () => {
               <View className="p-5">
               <InputField
                     label="Name"
-            placeholder="Full Name"
+            placeholder="First Name"
             icon={icons.person}
             value={form.firstName}
                     onChangeText={(value) => setForm({ ...form, firstName: value })}
                />
                <InputField
                     label="Name"
-            placeholder="Full Name"
+            placeholder="Last Name"
             icon={icons.person}
             value={form.lastName}
                     onChangeText={(value) => setForm({ ...form, lastName: value })}
@@ -79,8 +79,8 @@ const Sign_Up = () => {
                     onChangeText={(value) => setForm({ ...form, email: value })}
                />
                <InputField
-                    label="Name"
-            placeholder="Full Name"
+                    label="Profile Pic"
+            placeholder="ProfilePic"
             icon={icons.person}
             value={form.profilePic}
                     onChangeText={(value) => setForm({ ...form, profilePic: value })}

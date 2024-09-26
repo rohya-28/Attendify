@@ -3,6 +3,7 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: ["nativewind/babel"],
+    plugins: ['react-native-paper/babel'],
     plugins: [
       ['module:react-native-dotenv', {
         moduleName: '@env',

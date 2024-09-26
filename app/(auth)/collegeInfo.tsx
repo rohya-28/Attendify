@@ -6,6 +6,7 @@ import { View, Text, Image, Alert } from "react-native";
 import { ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useLocation } from "@/hooks/useUserLocation"; // Import the useLocation hook
+import authService from "@/api/authService";
 
 const CollegeInfo = () => {
   const [form, setForm] = useState({
@@ -31,10 +32,23 @@ const CollegeInfo = () => {
     }
   }, [location, errorMsg]);
 
-  const onSignUpPress = async () => {
-    console.log(form);
-    // Add your registration logic here
+  const onRegisterPress = async () => {
+    console.log(form);  // Log the form data for debugging
+  
+    try {
+      const formData = { ...form };  // Prepare the form data
+      const response = await authService.submitCollegeInfo(formData);  
+      console.log('College Registration Successful:', response);
+      
+      Alert.alert('Success', 'College Registered Successfully!');
+    } catch (error) {
+      console.error('College Registration Failed:', error);
+      
+      // Handle error, e.g., show an error message to the user
+      Alert.alert('Error', 'Failed to register the college. Please try again.');
+    }
   };
+  
 
   return (
     <GestureHandlerRootView>
@@ -87,7 +101,7 @@ const CollegeInfo = () => {
               {loading ? (
                 <Text>Loading location...</Text>
               ) : (
-                <CustomButton title="Register" onPress={onSignUpPress} className="mt-4" />
+                <CustomButton title="Register" onPress={onRegisterPress} className="mt-4" />
               )}
             </View>
           </View>
