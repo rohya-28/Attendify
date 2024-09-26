@@ -1,10 +1,11 @@
 import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
-import { useState } from "react";
-import { View, Text, Image } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Text, Image, Alert } from "react-native";
 import { ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useLocation } from "@/hooks/useUserLocation"; // Import the useLocation hook
 
 const CollegeInfo = () => {
   const [form, setForm] = useState({
@@ -14,9 +15,25 @@ const CollegeInfo = () => {
     longitude: '',
   });
 
+  const { location, errorMsg, loading } = useLocation();
+
+  useEffect(() => {
+    if (location) {
+      // Automatically populate latitude and longitude when location is available
+      setForm({
+        ...form,
+        latitude: location.coords.latitude.toString(),
+        longitude: location.coords.longitude.toString(),
+      });
+    }
+    if (errorMsg) {
+      Alert.alert('Error', errorMsg);
+    }
+  }, [location, errorMsg]);
+
   const onSignUpPress = async () => {
     console.log(form);
-    // Add your sign-up logic here
+    // Add your registration logic here
   };
 
   return (
@@ -51,21 +68,27 @@ const CollegeInfo = () => {
               />
               <InputField
                 label="Latitude"
-                placeholder="Enter Latitude"
+                placeholder="Latitude"
                 icon={icons.map}
                 value={form.latitude}
                 keyboardType="numeric"
                 onChangeText={(value) => setForm({ ...form, latitude: value })}
+                editable={!loading} // Disable if loading location
               />
               <InputField
                 label="Longitude"
-                placeholder="Enter Longitude"
+                placeholder="Longitude"
                 icon={icons.map}
                 value={form.longitude}
                 keyboardType="numeric"
                 onChangeText={(value) => setForm({ ...form, longitude: value })}
+                editable={!loading} // Disable if loading location
               />
-              <CustomButton title="Sign Up" onPress={onSignUpPress} className="mt-4" />
+              {loading ? (
+                <Text>Loading location...</Text>
+              ) : (
+                <CustomButton title="Register" onPress={onSignUpPress} className="mt-4" />
+              )}
             </View>
           </View>
         </View>
