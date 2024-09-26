@@ -2,7 +2,7 @@ import axios from 'axios';
 import { UserProfile } from '@/types/type';
 
 // Base URL for your API
-const BASE_URL = process.env.databaseUrl;
+const BASE_URL = "";
 
 const authService = {
   signUp: async (formData: UserProfile) => {

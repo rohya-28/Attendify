@@ -35,10 +35,10 @@ const Sign_Up = () => {
     const formData = { ...form, role };
     const response = await authService.signUp(formData);
     console.log('Sign Up Successful:', response);
-
+    // Handle success, e.g., navigate to another page or show a success message
   } catch (error) {
     console.error('Sign Up Failed:', error);
-    // Handle error
+    // Handle error, e.g., show an error message to the user
   }
 
   }
